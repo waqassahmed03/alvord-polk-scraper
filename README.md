@@ -1,4 +1,4 @@
-# Product Scraper
+# Alvord-Polk Scraper
 
 A Rust application that scrapes product data from the Alvord Polk website using product numbers stored in an Excel file.
 
