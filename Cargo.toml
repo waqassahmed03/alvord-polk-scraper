@@ -1,0 +1,10 @@
+[package]
+name = "alvord"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+calamine = "0.25.0"
+reqwest = { version = "0.12.7", features = ["blocking"] }
+scraper = "0.20.0"
+fake_user_agent = "0.2.1"
