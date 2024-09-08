@@ -13,7 +13,7 @@ fn main() {
     headers.insert("user-agent", user_agent.parse().unwrap());
 
     // Input File Path
-    let product_numbers_file_path = "./input/part_numbers.xlsx";
+    let product_numbers_file_path = "../input/product_numbers.xlsx";
     
     // Opening the input file
     let mut sheets: Sheets<_> = open_workbook_auto(product_numbers_file_path).unwrap();
