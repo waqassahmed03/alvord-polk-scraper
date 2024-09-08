@@ -13,7 +13,7 @@ fn main() {
     headers.insert("user-agent", user_agent.parse().unwrap());
 
     // Input File Path
-    let product_numbers_file_path = "../input/product_numbers.xlsx";
+    let product_numbers_file_path = "./input/product_numbers.xlsx";
     
     // Opening the input file
     let mut sheets: Sheets<_> = open_workbook_auto(product_numbers_file_path).unwrap();
@@ -38,6 +38,7 @@ fn main() {
     let img_tag =  Selector::parse("img").unwrap();
     let results_tag = Selector::parse(".fade > div").unwrap();
     let product_data_tag = Selector::parse("table.tblProducts").unwrap();
+    let desc_tag = Selector::parse(".caption").unwrap();
 
     // Looping over the rows in the first sheet
     for (index,part) in parts.unwrap().rows().enumerate(){
@@ -45,7 +46,8 @@ fn main() {
         if index == 0{
             continue;
         }
-        else if index == 15{
+        // you can uncomment the following code to stop the loop at your specified index.
+        else if index == 3{
             break;
         }
 
@@ -116,6 +118,10 @@ fn main() {
                 table_data.insert(header.clone(), value.clone());
             }
         
+        // get the description from the image
+        let description = response2.select(&desc_tag).next().unwrap().text().collect::<Vec<_>>().join("").trim().to_string() ;
+        table_data.insert("description".to_string(), description);
+
         // printing the HashMap containing the data points
         println!("{:#?}",table_data);
 
