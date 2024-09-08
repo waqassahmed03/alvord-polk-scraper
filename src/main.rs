@@ -50,12 +50,12 @@ fn main() {
         }
 
         // get(0) because the part/product numbers are in the first column
-        let part_number:String = part.get(0).unwrap().clone().to_string();
+        let product_number:String = part.get(0).unwrap().clone().to_string();
 
         // printing url to query
-        println!("{:#?}",format!("https://www.alvordpolk.com/catalog/search?q={}",part_number));
+        println!("{:#?}",format!("https://www.alvordpolk.com/catalog/search?q={}",product_number));
         // Sending request to thr url
-        let res = client.get(format!("https://www.alvordpolk.com/catalog/search?q={}",part_number))
+        let res = client.get(format!("https://www.alvordpolk.com/catalog/search?q={}",product_number))
         .headers(headers.clone())
         .send()
         .unwrap().text();
@@ -73,7 +73,7 @@ fn main() {
         for res in results.into_iter(){
             // url of the product
             let href = res.select(&a_tag).next().unwrap().value().attr("href");
-            if href.unwrap().ends_with(&part_number){
+            if href.unwrap().ends_with(&product_number){
                 // Match Found
                 result = Some(res);
                 url = href.unwrap().to_string();
@@ -83,7 +83,7 @@ fn main() {
 
         // Skipping the part/product number is match not found
         if result == None{
-            println!("Product{} not found...",part_number);
+            println!("Product{} not found...",product_number);
             continue;
         }
 
